@@ -1,26 +1,16 @@
 <?php
 namespace frontend\controllers;
 
+use common\models\User;
 use Yii;
-use yii\base\InvalidParamException;
-use yii\web\BadRequestHttpException;
+use yii\bootstrap\Html;
+use yii\helpers\Url;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
-use common\models\LoginForm;
-use frontend\models\PasswordResetRequestForm;
-use frontend\models\ResetPasswordForm;
-use frontend\models\SignupForm;
-use frontend\models\ContactForm;
 
-/**
- * Site controller
- */
 class SiteController extends Controller
 {
-    /**
-     * @inheritdoc
-     */
     public function behaviors()
     {
         return [
@@ -44,9 +34,6 @@ class SiteController extends Controller
         ];
     }
 
-    /**
-     * @inheritdoc
-     */
     public function actions()
     {
         return [
@@ -56,46 +43,45 @@ class SiteController extends Controller
         ];
     }
 
-    /**
-     * Displays homepage.
-     *
-     * @return mixed
-     */
     public function actionIndex()
     {
         return $this->render('index');
     }
 
-    /**
-     * Logs in a user.
-     *
-     * @return mixed
-     */
     public function actionLogin()
     {
+	    Yii::$app->session->open();
+
+	    $facebookRedirectLoginHelper = Yii::$app->facebook->getRedirectLoginHelper();
+
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
 
-        $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
-        } else {
-            return $this->render('login', [
-                'model' => $model,
-            ]);
+        if($accessToken = $facebookRedirectLoginHelper->getAccessToken()){
+	        $me = Yii::$app->facebook->get('/me', $accessToken)->getGraphUser();
+
+	        /** @var User $user */
+	        $user = new User();
+	        $user->id = $me->getId();
+	        $user->name = $me->getName();
+	        $user->accessToken = $accessToken->getValue();
+
+	        Yii::$app->user->login($user, 3600 * 24 * 30);
+	        Yii::$app->session->set('access_token', $user->accessToken);
+
+	        $this->goHome();
         }
+
+	    return Html::a('Войти с facebook', $facebookRedirectLoginHelper->getLoginUrl(Url::current([], true), [
+		    'email',
+		    'user_photos'
+	    ]));
     }
 
-    /**
-     * Logs out the current user.
-     *
-     * @return mixed
-     */
     public function actionLogout()
     {
         Yii::$app->user->logout();
-
         return $this->goHome();
     }
 }
