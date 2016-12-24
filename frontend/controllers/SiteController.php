@@ -59,13 +59,13 @@ class SiteController extends Controller
     {
 	    Yii::$app->session->open();
 
+	    $redirect_url = Url::home(true).'site/login';
 	    $facebookRedirectLoginHelper = Yii::$app->facebook->getRedirectLoginHelper();
 
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
-
-        if($accessToken = $facebookRedirectLoginHelper->getAccessToken()){
+        if($accessToken = $facebookRedirectLoginHelper->getAccessToken($redirect_url)){
 	        $me = Yii::$app->facebook->get('/me', $accessToken)->getGraphUser();
 
 	        /** @var User $user */
@@ -77,10 +77,10 @@ class SiteController extends Controller
 	        Yii::$app->user->login($user, 3600 * 24 * 30);
 	        Yii::$app->session->set('access_token', $user->accessToken);
 
-	        $this->goHome();
+	        return $this->goHome();
         }
 
-	    return Html::a('Войти с facebook', $facebookRedirectLoginHelper->getLoginUrl(Url::current([], true), [
+	    return Html::a('Войти с facebook', $facebookRedirectLoginHelper->getLoginUrl($redirect_url, [
 		    'email',
 		    'user_photos'
 	    ]));
