@@ -14,7 +14,9 @@ class FacebookPhotosDataProvider extends BaseDataProvider
 	private $_user_id = null;
 
 	public function init() {
-		$this->_user_id = Yii::$app->user->identity->getId();
+		if(!Yii::$app->user->isGuest) {
+			$this->_user_id = Yii::$app->user->identity->getId();
+		}
 		parent::init();
 	}
 
@@ -50,7 +52,7 @@ class FacebookPhotosDataProvider extends BaseDataProvider
 
 			return $this->_photos;
 		}else{
-			return null;
+			return [];
 		}
 	}
 }
