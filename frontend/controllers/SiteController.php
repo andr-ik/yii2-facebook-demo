@@ -47,7 +47,11 @@ class SiteController extends Controller
     public function actionIndex()
     {
         return $this->render('index', [
-        	'facebookPhotosDataProvider' => new FacebookPhotosDataProvider()
+        	'facebookPhotosDataProvider' => new FacebookPhotosDataProvider([
+        		'pagination' => [
+			        'pageSize' => 2,
+		        ],
+	        ])
         ]);
     }
 

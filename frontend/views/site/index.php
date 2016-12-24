@@ -9,11 +9,13 @@ $this->title = 'My Yii Application';
     <?php echo \yii\widgets\ListView::widget([
         'dataProvider' => $facebookPhotosDataProvider,
         'itemView' => function($model, $key, $index, $widget){
+            $title = isset($model['name']) ? $model['name'] : '';
             $image = array_pop($model['images']);
             return \yii\bootstrap\Html::img($image['source'], [
                 'alt' => 'photo-id'.$key,
                 'width' => $image['width'],
-                'height' => $image['height']
+                'height' => $image['height'],
+                'title' => $title
             ]);
         }
     ]); ?>

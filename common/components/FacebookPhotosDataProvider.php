@@ -8,7 +8,7 @@ use yii\data\BaseDataProvider;
 class FacebookPhotosDataProvider extends BaseDataProvider
 {
 	public $get =  '/photos/uploaded';
-	public $fields = ['images'];
+	public $fields = ['id','name','images'];
 
 	private $_photos = [];
 	private $_user_id = null;
@@ -29,15 +29,25 @@ class FacebookPhotosDataProvider extends BaseDataProvider
 	}
 
 	protected function prepareTotalCount(){
-		return count($this->getPhotos());
+		//todo: Знаю что есть проблема, но в facebook api никак иначе
+		return 100; //count($this->getPhotos());
 	}
 
 	private function getPhotos(){
 		if(!Yii::$app->user->isGuest){
 			if(empty($this->_photos)){
 				$get = '/'.$this->_user_id.$this->get.'?fields='.implode(',',$this->fields);
+
+				$pagination = $this->getPagination();
+				$pagination->totalCount = $this->getTotalCount();
+				if ($pagination !== false){
+					$get .= '&limit='.$pagination->getLimit();
+					$get .= '&offset='.$pagination->getOffset();
+				}
+
 				$this->_photos = Yii::$app->facebook->get($get)->getDecodedBody()['data'];
 			}
+
 			return $this->_photos;
 		}else{
 			return null;
