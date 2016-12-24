@@ -1,6 +1,7 @@
 <?php
 namespace frontend\controllers;
 
+use common\components\FacebookPhotosDataProvider;
 use common\models\User;
 use Yii;
 use yii\bootstrap\Html;
@@ -45,7 +46,9 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-        return $this->render('index');
+        return $this->render('index', [
+        	'facebookPhotosDataProvider' => new FacebookPhotosDataProvider()
+        ]);
     }
 
     public function actionLogin()
