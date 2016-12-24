@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "fb7d45bf46b26fc80de02bed0e6a5587",
-    "content-hash": "f08e0abea71b3609f00e1c90c38a4e7d",
+    "hash": "69e3e856e167e1b5d029d2d87af9ea68",
+    "content-hash": "dcede0523d050617d8e1cec8521b9521",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -298,6 +298,64 @@
                 "html"
             ],
             "time": "2016-07-16 12:58:58"
+        },
+        {
+            "name": "facebook/graph-sdk",
+            "version": "5.4.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/facebook/php-graph-sdk.git",
+                "reference": "2839246e971aef150650196acbb46d47e5207370"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/facebook/php-graph-sdk/zipball/2839246e971aef150650196acbb46d47e5207370",
+                "reference": "2839246e971aef150650196acbb46d47e5207370",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.4|^7.0"
+            },
+            "require-dev": {
+                "guzzlehttp/guzzle": "~5.0",
+                "mockery/mockery": "~0.8",
+                "phpunit/phpunit": "~4.0"
+            },
+            "suggest": {
+                "guzzlehttp/guzzle": "Allows for implementation of the Guzzle HTTP client",
+                "paragonie/random_compat": "Provides a better CSPRNG option in PHP 5"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "5.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Facebook\\": "src/Facebook/"
+                },
+                "files": [
+                    "src/Facebook/polyfills.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Facebook Platform"
+            ],
+            "authors": [
+                {
+                    "name": "Facebook",
+                    "homepage": "https://github.com/facebook/php-graph-sdk/contributors"
+                }
+            ],
+            "description": "Facebook SDK for PHP",
+            "homepage": "https://github.com/facebook/php-graph-sdk",
+            "keywords": [
+                "facebook",
+                "sdk"
+            ],
+            "time": "2016-11-15 14:34:16"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -595,6 +653,48 @@
         }
     ],
     "packages-dev": [
+        {
+            "name": "bazilio/yii2-stubs-generator",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bazilio91/yii2-stubs-generator.git",
+                "reference": "a80f60fb28ee1dab05f32b5136ac6454d3318372"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bazilio91/yii2-stubs-generator/zipball/a80f60fb28ee1dab05f32b5136ac6454d3318372",
+                "reference": "a80f60fb28ee1dab05f32b5136ac6454d3318372",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "bazilio\\stubsgenerator\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Vasily Ostanin",
+                    "email": "bazilio91@gmail.com"
+                }
+            ],
+            "description": "Yii2 component stubs generator for Yii::$app",
+            "keywords": [
+                "autocomplete",
+                "phpstorm",
+                "stubs",
+                "yii2"
+            ],
+            "time": "2015-12-12 02:31:16"
+        },
         {
             "name": "behat/gherkin",
             "version": "v4.4.5",

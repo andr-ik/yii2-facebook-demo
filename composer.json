@@ -17,7 +17,8 @@
         "php": ">=5.4.0",
         "yiisoft/yii2": "~2.0.6",
         "yiisoft/yii2-bootstrap": "~2.0.0",
-        "yiisoft/yii2-swiftmailer": "~2.0.0"
+        "yiisoft/yii2-swiftmailer": "~2.0.0",
+        "facebook/graph-sdk": "^5.4"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",
@@ -25,7 +26,8 @@
         "yiisoft/yii2-faker": "~2.0.0",
 
         "codeception/base": "^2.2.3",
-        "codeception/verify": "~0.3.1"
+        "codeception/verify": "~0.3.1",
+        "bazilio/yii2-stubs-generator": "^1.0"
     },
     "config": {
         "process-timeout": 1800
